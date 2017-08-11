@@ -1,0 +1,26 @@
+<div class="container">
+    <h3>Books List</h3>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <input type="text" class="form-control" placeholder="Search">
+            <table class="table" style="margin-top:20px;">
+                <thead>
+                    <th>Books Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td>{{book.name}}</td>
+                        <td>{{book.category}}</td>
+                        <td>{{book.description}}</td>
+                        <td>{{book.price}}</td>
+                        <td>{{book.author}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div>
