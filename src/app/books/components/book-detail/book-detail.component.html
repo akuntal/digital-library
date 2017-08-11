@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-group">
+      <label for="bookNameInput">Book Name</label>
+      <input type="text" class="form-control" placeholder="Book Name" [(ngModel)]="book.name">
+    </div>
+    <div class="form-group">
+      <label for="categoryInput">Category</label>
+      <input type="text" class="form-control" placeholder="Category" [(ngModel)]="book.category">
+    </div>
+    <div class="form-group">
+      <label for="descriptionInput">Description</label>
+      <input type="text" class="form-control" placeholder="Description" [(ngModel)]="book.description">
+    </div>
+    <div class="form-group">
+      <label for="priceInput">Price</label>
+      <input type="number" class="form-control" placeholder="Price" [(ngModel)]="book.price">
+    </div>
+    <div class="form-group">
+      <label for="authorInput">Author</label>
+      <input type="text" class="form-control" placeholder="Author" [(ngModel)]="book.author">
+    </div>
+    <!-- <div class="form-group">
+  <label for="exampleInputFile">File input</label>
+  <input type="file" id="exampleInputFile">
+  <p class="help-block">Example block-level help text here.</p>
+</div> -->
+    <!-- <div class="checkbox">
+  <label>
+      <input type="checkbox"> Check me out
+    </label>
+</div> -->
+    <button class="btn btn-primary" (click)="submit()">Submit</button>
+  </div>
+</div>

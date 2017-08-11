@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "123456",
+  password: "123",
   database: "library"
 });
 
@@ -32,4 +32,8 @@ module.exports.updateBook = function(data, condition, callback) {
 
 module.exports.deleteBook = function(condition, callback) {
   con.query("DELETE FROM books WHERE ?", condition, callback);
+}
+
+module.exports.searchBooks = function(condition, callback) {
+  con.query("SELECT * FROM books WHERE name LIKE '%"+condition+"%'", callback);
 }

@@ -15,7 +15,7 @@ app.get('/api/books', function(req, res) {
 app.post('/api/book/add', function(req, res, next) {
 	var data = req.body;
 	book.addBook(data,function(err, rows, fields){
-		if(err) throw err;
+		if(err) throw err;		
 		res.json(data);
 	})
 });
@@ -34,6 +34,14 @@ app.delete('/api/book/:book_id', function(req, res, next) {
 	book.deleteBook({"id":book_id}, function(err, rows, fields){
 		if(err) throw err;
 	 	res.json(book_id);
+	})
+});
+
+app.put('/api/books/search', function(req, res, next) {
+	var bookname = req.body.bookname;	
+	book.searchBooks(bookname, function(err, rows, fields){
+		if(err) throw err;
+	 	res.json(rows);
 	})
 });
 

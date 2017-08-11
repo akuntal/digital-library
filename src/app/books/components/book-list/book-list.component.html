@@ -1,26 +1,32 @@
-<div class="container">
-    <h3>Books List</h3>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <input type="text" class="form-control" placeholder="Search">
-            <table class="table" style="margin-top:20px;">
-                <thead>
-                    <th>Books Name</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Author</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let book of books">
-                        <td>{{book.name}}</td>
-                        <td>{{book.category}}</td>
-                        <td>{{book.description}}</td>
-                        <td>{{book.price}}</td>
-                        <td>{{book.author}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>    
+<h3> Books List </h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <a class="btn btn-primary pull-right" [routerLink]="['add']">Add Book</a>
+    <input type="text" class="form-control" placeholder="Search">
+  </div>
+  <div class="col-md-8 col-md-offset-2">
+    <table class="table" style="margin-top:20px;">
+      <thead>
+        <th>Books Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Author</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>{{book.name}}</td>
+          <td>{{book.category}}</td>
+          <td>{{book.description}}</td>
+          <td>{{book.price}}</td>
+          <td>{{book.author}}</td>
+          <td>
+            <a [routerLink]="['edit/'+book.id]"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <a href="javascript:void();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
