@@ -1,48 +1,119 @@
 var express = require('express');
+var HttpStatus = require('http-status-codes');
 var app = express();
 
-// Import Book Module Containing Functions Related To Book Data
+// Import Book Module Containing Functions Related To Books
 var book = require('../models/book');
 
+// API fetch all books
 app.get('/api/books', function(req, res) {
-	book.findAll(function(err, rows, fields) {
-		console.log(err);
-		if(err) throw err;
-		res.json(rows);
-	})
+	try {
+		book.findAll(function(err, rows, fields) {
+			if(err){ 
+				console.log('Error occured fetching books list, Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while fetching books'})
+				return
+			};
+			res.json(rows);
+		})
+	} catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.send({'status':'failure', 'message':'error while fetching books'})
+	}
 });
 
-app.post('/api/book/add', function(req, res, next) {
+// API add new book
+app.post('/api/book', function(req, res, next) {
 	var data = req.body;
-	book.addBook(data,function(err, rows, fields){
-		if(err) throw err;		
-		res.json(data);
-	})
+	try {
+		book.addBook(data,function(err, rows, fields){
+			if(err) {
+				console.log('Error occured while adding new book, book model - '+ JSON.stringify(data)+' Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while adding new book'})
+				return
+			};		
+			res.json(data);
+		})
+	} catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({'status':'failure', 'message':'error while adding new book'})
+	}
 });
 
-app.put('/api/book/update', function(req, res, next) {
+// API update a book
+app.put('/api/book/:book_id', function(req, res, next) {
 	var data = req.body;
-	var condition  = {"id": data.id};	
-	book.updateBook(data, condition, function(err, rows, fields){
-		if(err) throw err;
-		res.json(data);
-	})
+	var condition  = {"id": data.id};
+	try{
+		book.updateBook(data, condition, function(err, rows, fields){
+			if(err) {
+				console.log('Error occured while updating book, book model - '+ JSON.stringify(data)+' Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while updating book'})
+				return;
+			};		
+			res.json(data);
+		})
+	} catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({'status':'failure', 'message':'error while updating book'});
+	}	
+	
 });
 
+// API delete a book
 app.delete('/api/book/:book_id', function(req, res, next) {
 	var book_id = req.params.book_id;
-	book.deleteBook({"id":book_id}, function(err, rows, fields){
-		if(err) throw err;
-	 	res.json(book_id);
-	})
+	try{
+		book.deleteBook({"id":book_id}, function(err, rows, fields){
+			if(err) {
+				console.log('Error occured while updating book, book_id - '+ book_id+' Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while updating book'})
+				return;
+			};		
+			res.json(book_id);
+		})
+	}catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({'status':'failure', 'message':'error while updating book'});	
+	}
+	
 });
 
+// API search for books
 app.put('/api/books/search', function(req, res, next) {
-	var bookname = req.body.bookname;	
-	book.searchBooks(bookname, function(err, rows, fields){
-		if(err) throw err;
-	 	res.json(rows);
-	})
+	var bookname = req.body.bookname;
+	try{
+		book.searchBooks(bookname, function(err, rows, fields){
+			if(err) {
+				console.log('Error occured while updating book, book name - '+ bookname+' Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while updating book'})
+				return;
+			};
+			res.json(rows);
+		})
+	}catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({'status':'failure', 'message':'error while searching'});	
+	}	
+	
 });
+
+
+app.get('/api/book/:book_id', function(req, res, next){
+	var book_id = req.params.book_id;
+	try{
+		book.findBook(book_id, function(err, rows, fields){
+			if(err){
+				console.log('Error occured while updating book, book name - '+ bookname+' Error code '+err.code)
+				res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'error while updating book'})
+				return;
+			}
+			res.json(rows);
+		})
+	} catch(err){
+		console.log('Inside catch '+JSON.stringify(err));
+		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({'status':'failure', 'message':'error while searching'});	
+	}
+})
 
 module.exports = app;

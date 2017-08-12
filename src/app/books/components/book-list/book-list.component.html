@@ -1,8 +1,8 @@
 <h3> Books List </h3>
-<div class="row">
+<div class="row" #booksList>
   <div class="col-md-8 col-md-offset-2">
-    <a class="btn btn-primary pull-right" [routerLink]="['add']">Add Book</a>
-    <input type="text" class="form-control" placeholder="Search">
+    <button class="btn btn-primary pull-right" [routerLink]="['add']">Add Book</button>
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="booksList.searchString">
   </div>
   <div class="col-md-8 col-md-offset-2">
     <table class="table" style="margin-top:20px;">
@@ -15,7 +15,7 @@
         <th>Actions</th>
       </thead>
       <tbody>
-        <tr *ngFor="let book of books">
+        <tr *ngFor="let book of books | bookFilter:booksList.searchString">
           <td>{{book.name}}</td>
           <td>{{book.category}}</td>
           <td>{{book.description}}</td>
@@ -23,7 +23,7 @@
           <td>{{book.author}}</td>
           <td>
             <a [routerLink]="['edit/'+book.id]"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-            <a href="javascript:void();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            <a (click)="deleteBook(book.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
           </td>
         </tr>
       </tbody>

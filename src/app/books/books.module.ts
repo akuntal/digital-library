@@ -1,3 +1,4 @@
+import { BookFilterPipe } from './pipes/book-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { CommonModule } from '@angular/common';
@@ -12,12 +13,14 @@ const routes:Routes = [
     { path:'', component:BookComponent, children:[
         { path:'', component:BookListComponent},
         { path:'add', component:BookDetailComponent},
-        { path:'edit/:book_id', component:BookDetailComponent}
+        { path:'edit/:book_id', component:BookDetailComponent, data:{
+            isEdit:true
+        } }
     ]}
 ]
 
 @NgModule({
-    declarations:[BookComponent, BookListComponent, BookDetailComponent],
+    declarations:[BookComponent, BookListComponent, BookDetailComponent, BookFilterPipe],
     imports:[CommonModule, RouterModule.forChild(routes), FormsModule],
     providers: [BooksService]
 })
