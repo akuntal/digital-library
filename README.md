@@ -1,6 +1,5 @@
 # DigitalLibrary
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.3.
+	npm packages used Nodejs, Expressjs, Mysql
 
 ## Steps to run
 	Make sure you have mysql installed and running on your system.
@@ -12,4 +11,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 	 5. go to inside server folder
 	 6. Open another terminal and run `npm start`. it will start your service
 
-	 Database configuration file you can find here `digital-library/server/config`
+	 Database configuration file you can find here `./server/config`
