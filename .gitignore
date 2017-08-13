@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 node_modules
 node_modules
+
+#test coverage
+server/test/coverage/*

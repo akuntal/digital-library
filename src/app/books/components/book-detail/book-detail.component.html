@@ -1,8 +1,13 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="form-group">
-      <label for="bookNameInput">Book Name</label>
-      <input type="text" class="form-control" placeholder="Book Name" [(ngModel)]="book.name">
+      <label for="bookNameInput">Book Name *</label>
+      <input type="text" class="form-control" minlength="3" placeholder="Book Name" [(ngModel)]="book.name" name="bookName" #bookName="ngModel" required>
+      <div *ngIf="bookName.invalid && (bookName.dirty || bookName.touched)" class="error-message">
+        <i class="ion-android-alert showError"></i>
+        <div *ngIf="bookName.errors.required">Book Name is required</div>
+         <div *ngIf="bookName.errors.minlength">Minimum 3 characters</div>
+      </div>
     </div>
     <div class="form-group">
       <label for="categoryInput">Category</label>

@@ -37,7 +37,8 @@ export class HttpService extends Http {
                 this.router.navigate(['login']);
                 return Observable.throw(res);
             }
-            alert("Error- "+res)
+            // show error window here or dispatch events to show error window
+            alert("Error - "+ res);
             return Observable.throw(res);
         };
     }

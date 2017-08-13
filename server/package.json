@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node server.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha ./test/book_api.js --env.NODE_ENV='test'"
   },
   "author": "",
   "license": "ISC",

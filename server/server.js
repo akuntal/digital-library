@@ -18,15 +18,22 @@ process.env.SECRET_KEY="DIGITAL_LIBRARY";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// secure book's api 
-app.use('/api/books',router);
-app.use('/api/book',router);
+// bypass secure if it's test mode
+if (process.env.NODE_ENV !== 'test') {  
+    // secure book's api 
+    app.use('/api/books',router);
+    app.use('/api/book',router);
+}
 
 // validation middleware
 router.use(function(req, res, next){
+    // if (process.env.NODE_ENV === 'test') {
+    //     next();
+    //     return;
+    // }
     var token=req.body.token || req.headers['token'];
     if(token){
-        jwt.verify(token,process.env.SECRET_KEY,function(err,ress){
+        jwt.verify(token, process.env.SECRET_KEY,function(err,ress){
             if(err){
                 res.status(401).send({'message':'Token Invalid'});
             }else{

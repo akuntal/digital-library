@@ -1,4 +1,4 @@
-
+process.env.NODE_ENV = 'test';
 let Book = require('../api/book_api');
 
 //Require the dev-dependencies
@@ -8,6 +8,7 @@ let server = require('../server');
 let should = chai.should();
 
 chai.use(chaiHttp);
+
 
 //Parent block
 describe('Books', () => {
@@ -41,7 +42,7 @@ describe('Books', () => {
 	  		author: "J.R.R. Tolkien",
 	  		description: "book decription",
 	  		price: 1170,
-            category: "cat1"
+        category: "cat1"
 	  	}
 			chai.request(server)
 		    .post('/api/book')
@@ -53,7 +54,7 @@ describe('Books', () => {
 			  	res.body.should.have.property('author');
 			  	res.body.should.have.property('price');
 			  	res.body.should.have.property('description');
-                res.body.should.have.property('category');
+          res.body.should.have.property('category');
 		      done();
 		    });
 	  });

@@ -25,6 +25,11 @@ app.get('/api/books', function(req, res) {
 // API add new book
 app.post('/api/book', function(req, res, next) {
 	var data = req.body;
+	if (!data.name) {
+		res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'Required fields can\'t be empty'})				
+		return;
+	}
+
 	try {
 		book.addBook(data,function(err, rows, fields){
 			if(err) {
@@ -43,6 +48,10 @@ app.post('/api/book', function(req, res, next) {
 // API update a book
 app.put('/api/book/:book_id', function(req, res, next) {
 	var data = req.body;
+	if (!data.name) {
+		res.status(HttpStatus.BAD_REQUEST).send({'status':'failure', 'message':'Required fields can\'t be empty'})				
+		return;
+	}
 	var condition  = {"id": data.id};
 	try{
 		book.updateBook(data, condition, function(err, rows, fields){
